@@ -148,10 +148,6 @@ app/src/main/java/com/woolo/seekhoandroid/
 └── SeekhoApplication.kt
 ```
 
-## Quick Start
-
-For a detailed setup guide, see [SETUP.md](SETUP.md)
-
 ### Minimum Requirements
 - **Android Studio**: Hedgehog (2023.1.1) or later
 - **JDK**: Java 11 or higher
