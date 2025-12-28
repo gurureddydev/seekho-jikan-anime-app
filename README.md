@@ -6,13 +6,11 @@ A modern Android application built with Jetpack Compose that fetches and display
 
 Watch the app in action:
 
-<video src="demo/screen_recording.mp4" controls width="100%">
-  Your browser does not support the video tag.
-</video>
+![App Demo](demo/app_demo.gif)
 
-**Alternative:** [Download/View Video](demo/screen_recording.mp4)
+**Full video:** [📹 Watch Full HD Video](demo/screen_recording.mp4)
 
-**Note:** The demo video shows the app's key features including anime list browsing, detail view with trailer playback, character information, and Netflix-style UI.
+**Note:** The demo shows the app's key features including anime list browsing, detail view with trailer playback, character information, and Netflix-style UI.
 
 ## Features Implemented
 
