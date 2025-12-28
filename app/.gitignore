@@ -1,0 +1,6 @@
+/build/
+*.apk
+*.aab
+*.ap_
+proguard/
+proguard-rules.txt

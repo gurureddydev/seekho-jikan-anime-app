@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+  html,body,#player{margin:0;height:100%;background:black;}
+</style>
+</head>
+<body>
+
+<div id="player"></div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+var player;
+var videoIdToLoad = null;
+var apiReady = false;
+
+function onYouTubeIframeAPIReady(){
+  console.log('YouTube IFrame API ready');
+  apiReady = true;
+  // Initialize player if video ID is already set
+  if(videoIdToLoad && videoIdToLoad !== 'VIDEO_ID'){
+    console.log('Video ID already set, initializing player:', videoIdToLoad);
+    initializePlayer(videoIdToLoad);
+  } else {
+    console.log('No video ID set yet, waiting for play() call');
+  }
+}
+
+function initializePlayer(videoId){
+  console.log('initializePlayer() called with video ID:', videoId);
+  if(!player){
+    console.log('Creating new YT.Player');
+    player = new YT.Player('player',{
+      videoId: videoId,
+      playerVars:{
+        autoplay:1,
+        mute:1,
+        controls:1,
+        playsinline:1,
+        rel:0,
+        modestbranding:1
+      },
+      events:{
+        onStateChange:onStateChange,
+        onError:onError,
+        onReady:onReady
+      }
+    });
+  } else {
+    console.log('Player already exists, loading video');
+    player.loadVideoById(videoId);
+  }
+}
+
+function onStateChange(e){
+  console.log('YouTube player state:', e.data);
+  if(window.Android && window.Android.onState){
+    window.Android.onState(e.data);
+  }
+}
+
+function onError(e){
+  console.error('YouTube player error:', e.data);
+  if(window.Android && window.Android.onError){
+    window.Android.onError(e.data);
+  }
+}
+
+function onReady(e){
+  console.log('YouTube player ready');
+  if(window.Android && window.Android.onReady){
+    window.Android.onReady();
+  }
+}
+
+function play(id){
+  console.log('play() called with video ID:', id);
+  if(!id || id === 'VIDEO_ID') {
+    console.warn('Invalid video ID:', id);
+    return;
+  }
+  
+  videoIdToLoad = id;
+  
+  if(apiReady){
+    console.log('API ready, loading video');
+    if(player && player.loadVideoById){
+      console.log('Using loadVideoById');
+      player.loadVideoById(id);
+    } else {
+      console.log('Initializing new player');
+      initializePlayer(id);
+    }
+  } else {
+    console.log('API not ready yet, video ID stored:', id);
+  }
+}
+
+function unMute(){
+  if(player && player.unMute){
+    player.unMute();
+  }
+}
+
+function pause(){
+  if(player && player.pauseVideo){
+    player.pauseVideo();
+  }
+}
+
+function playVideo(){
+  if(player && player.playVideo){
+    player.playVideo();
+  }
+}
+</script>
+</body>
+</html>
+
